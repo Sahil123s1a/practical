@@ -1,0 +1,7 @@
+cust_id=[100,120,111,145,155]
+find_id=int(input("enter  id="))
+
+if find_id in cust_id:
+    print(find_id,"is found in cust_id")
+else:
+    print("id not found")
