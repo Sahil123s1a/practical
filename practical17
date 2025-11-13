@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    string func;
+    Node* next;
+    Node(string f) : func(f), next(nullptr) {}
+};
+
+class Stack {
+    Node* top;
+public:
+    Stack() : top(nullptr) {}
+    void push(string f) {
+        Node* n = new Node(f);
+        n->next = top;
+        top = n;
+    }
+    void pop() {
+        if (!top) return;
+        Node* temp = top;
+        top = top->next;
+        delete temp;
+    }
+    void display() {
+        Node* curr = top;
+        while (curr) {
+            cout << curr->func << " ";
+            curr = curr->next;
+        }
+        cout << "\n";
+    }
+};
+
+int main() {
+    Stack callStack;
+    callStack.push("main");
+    callStack.push("funcA");
+    callStack.push("funcB");
+    callStack.display();
+    callStack.pop();
+    callStack.display();
+    callStack.pop();
+    callStack.display();
+}
