@@ -1,0 +1,9 @@
+s=[35000.5,42000.0,3100.7,5600.3,4800.9,6000.2,3900.4]
+for i in range(len(s)):
+
+ m=i
+ for j in range(i+1,len(s)):
+ 
+   if s[j]<s[m]: m=j
+s[i],s[m]=s[m],s[i]
+print("Top 5:", s[-5:][::-1])
