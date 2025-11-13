@@ -1,0 +1,42 @@
+#include <iostream>
+#include <list>
+using namespace std;
+
+class HashTable {
+    list<pair<int, string>> table[10];  
+    int hashFunc(int key) { 
+        return key % 10; 
+    }
+
+public:
+    void insert(int key, string value) {
+        int i = hashFunc(key);
+        table[i].push_back({key, value});
+    }
+
+    string search(int key) {
+        int i = hashFunc(key);
+        for (auto &p : table[i])
+            if (p.first == key) 
+                return p.second;
+        return "Not Found";
+    }
+
+    void display() {
+        for (int i = 0; i < 10; i++) {
+            cout << i << ": ";
+            for (auto &p : table[i])
+                cout << "(" << p.first << "," << p.second << ") ";
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    HashTable h;
+    h.insert(12, "A");
+    h.insert(22, "B");
+    h.insert(42, "C");
+    h.display();
+    cout << "Search 22: " << h.search(22) << endl;
+}
