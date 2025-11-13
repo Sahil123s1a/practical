@@ -1,0 +1,8 @@
+books={"A":10, "B":5, "C":7, "D":9}
+members={"M1":3,"M2":0,"M3":0}
+
+print("Avg:",sum(members.values())/len(members))
+print("Max books:",max(books,key=books.get))
+print("Min books:",min(books,key=books.get))
+print("No Borrow:",sum(v==0 for v in members.values()))
+print("Most frequent:",max(books,key=books.get))
