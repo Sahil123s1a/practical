@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+#define S 10
+struct H{
+    int t[S];
+    H(){for(int i=0;i<S;i++)t[i]=-1;}
+    int h(int k){return k%S;}
+    void ins(int k){
+        int i=h(k),s=i;
+        while(t[i]!=-1){i=(i+1)%S;if(i==s)return;}
+        t[i]=k;
+    }
+    bool srch(int k){
+        int i=h(k),s=i;
+        while(t[i]!=-1){
+            if(t[i]==k)return 1;
+            i=(i+1)%S;
+            if(i==s)break;
+        }
+        return 0;
+    }
+    void dsp(){
+        for(int i=0;i<S;i++)cout<<(t[i]==-1?"-":to_string(t[i]))<<" ";
+        cout<<"\n";
+    }
+};
+
+int main(){
+    H ht;
+    int c,k;
+    while(cin>>c){
+        if(c==1){cin>>k;ht.ins(k);}
+        else if(c==2){cin>>k;cout<<(ht.srch(k)?"Found\n":"Not found\n");}
+        else if(c==3)ht.dsp();
+        else break;
+    }
+}
