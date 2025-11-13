@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    string event;
+    Node* next;
+    Node(string e) : event(e), next(nullptr) {}
+};
+
+class CircularQueue {
+    Node* rear;
+public:
+    CircularQueue() : rear(nullptr) {}
+
+    void enqueue(string e) {
+        Node* n = new Node(e);
+        if (!rear) {
+            rear = n;
+            rear->next = rear;
+        } else {
+            n->next = rear->next;
+            rear->next = n;
+            rear = n;
+        }
+    }
+
+    void dequeue() {
+        if (!rear) return;
+        Node* front = rear->next;
+        if (front == rear) {
+            delete front;
+            rear = nullptr;
+        } else {
+            rear->next = front->next;
+            delete front;
+        }
+    }
+
+    void display() {
+        if (!rear) {
+            cout << "No events\n";
+            return;
+        }
+        Node* curr = rear->next;
+        do {
+            cout << curr->event << " ";
+            curr = curr->next;
+        } while (curr != rear->next);
+        cout << "\n";
+    }
+
+    void cancel(string e) {
+        if (!rear) return;
+        Node *curr = rear->next, *prev = rear;
+        do {
+            if (curr->event == e) {
+                if (curr == rear && curr == rear->next) {
+                    delete curr;
+                    rear = nullptr;
+                    return;
+                }
+                prev->next = curr->next;
+                if (curr == rear) rear = prev;
+                delete curr;
+                return;
+            }
+            prev = curr;
+            curr = curr->next;
+        } while (curr != rear->next);
+    }
+};
+
+int main() {
+    CircularQueue q;
+    q.enqueue("Event1");
+    q.enqueue("Event2");
+    q.enqueue("Event3");
+    q.display();
+    q.cancel("Event2");
+    q.display();
+    q.dequeue();
+    q.display();
+}
