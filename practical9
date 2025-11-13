@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+struct Student {
+    int roll;
+    string name;
+    float marks;
+    Student *next;
+};
+
+Student *head = NULL;
+
+void add(int r, string n, float m) {
+    Student *s = new Student{r, n, m, head};
+    head = s;
+    cout << "Added!\n";
+}
+
+void display() {
+    if (!head) { cout << "No records!\n"; return; }
+    for (Student *t = head; t; t = t->next)
+        cout << t->roll << " " << t->name << " " << t->marks << endl;
+}
+
+void update(int r, string n, float m) {
+    for (Student *t = head; t; t = t->next)
+        if (t->roll == r) { t->name = n; t->marks = m; cout << "Updated!\n"; return; }
+    cout << "Not found!\n";
+}
+
+int main() {
+    add(1,"A",85);
+    add(2,"B",90);
+    add(3,"C",75);
+    display();
+    update(2,"Bobby",95);
+    cout << "\nAfter update:\n";
+    display();
+}
