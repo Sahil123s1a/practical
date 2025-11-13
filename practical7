@@ -1,0 +1,75 @@
+#include <iostream>
+#include <queue>
+#include <string>
+using namespace std;
+
+class EventSystem {
+    queue<string> queueevent;
+
+public:
+    void addevent(const string& eventname) {
+        queueevent.push(eventname);
+        cout << "Event added: " <<  eventname << endl;
+    }
+
+    void processEvent() {
+        if (queueevent.empty()) {
+            cout << "No events to process." << endl;
+            return;
+        } else {
+            cout << "Processing event: " << queueevent.front() << endl;
+            queueevent.pop();
+        }
+    }
+
+    void displayEvent() {
+        if (queueevent.empty()) {
+            cout << "No pending events." << endl;
+            return;
+        } else {
+            cout << "Pending events:" << endl;
+            queue<string> temp = queueevent;
+            while (!temp.empty()) {
+                cout << "- " << temp.front() << endl;
+                temp.pop();
+            }
+        }
+    }
+};
+
+int main() {
+    EventSystem System;
+    int choice = 0;
+    string eventname;
+
+    while (choice != 4) {
+        cout << "\n---- Event Handling System ----" << endl;
+        cout << "1. Add Event" << endl;
+        cout << "2. Process Next Event" << endl;
+        cout << "3. Display Pending Events" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter event name: ";
+                cin >> eventname;
+                System.addevent(eventname);
+                 break;
+            case 2:
+                System.processEvent();  
+                break;
+            case 3:
+                System.displayEvent(); 
+                break;
+            case 4:
+                cout << "Exiting program..." << endl;  
+                break;
+            default:
+                cout << "Invalid choice! Please try again." << endl;
+        }
+    }
+
+    return 0;
+}
