@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+#define SIZE 10
+
+class HashTable {
+    int table[SIZE];
+public:
+    HashTable() { for(int i=0;i<SIZE;i++) table[i]=-1; }
+    int hash(int k) { return k % SIZE; }
+    void insert(int k) {
+        int i=hash(k), start=i;
+        while(table[i]!=-1){ i=(i+1)%SIZE; if(i==start) return; }
+        table[i]=k;
+    }
+    bool search(int k) {
+        int i=hash(k), start=i;
+        while(table[i]!=-1){ if(table[i]==k) return true; i=(i+1)%SIZE; if(i==start) break; }
+        return false;
+    }
+    void display() { for(int i=0;i<SIZE;i++) 
+    cout<<i<<":"<<(table[i]==-1?"-":
+    to_string(table[i]))<<"\n"; }
+};
+
+int main() {
+    HashTable ht;
+    ht.insert(12);
+    ht.insert(22); 
+    ht.insert(32); 
+    ht.display();
+    cout<<(ht.search(22)?"Found\n":"Not found\n");
+}
